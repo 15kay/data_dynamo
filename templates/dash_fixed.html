@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TempTrend Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+               body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1e202b;
+            color: #000000;
+        }
+
+        .navbar {
+            background-color: #009ad8;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #222831 !important;
+        }
+
+        .sidebar {
+            background-color: #1e202b;
+            min-height: calc(100vh - 56px);
+        }
+
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: #009ad8;
+            color: #010205 !important;
+        }
+
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,.05);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #009ad8;
+            border-color: #009ad8;
+        }
+
+        .btn-primary:hover {
+            background-color: #007bb5;
+        }
+
+        .form-control:focus {
+            border-color: #009ad8;
+            box-shadow: 0 0 0 0.2rem rgba(255, 190, 51, 0.25);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">TempTrend Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html"><i class="fas fa-home mr-2"></i>Back to Site</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logIn.html" id="logoutBtn"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="dashboardBtn">
+                                <i class="fas fa-tachometer-alt mr-2"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register " id="dataInputBtn">
+                                <i class="fas fa-list mr-2"></i>
+                                Input Data
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="profileBtn">
+                                <i class="fas fa-user mr-2"></i>
+                                Profile
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2" style="color: #fff;">Dashboard</h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Welcome</h5>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Sales Prediction</h5>
+                                {% if prediction %}
+                                
+                                    <option value="{{ prediction | default('N/A', true) }}">{{ prediction | default('N/A', true) }}</option>
+                                
+                                {% else %}
+                                <option value="" disabled>No prediction available</option>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Recommendation</h5>
+                                {% if recommendation %}
+                                
+                                    <option value="{{ recommendation | default('No Recommendation Available', true) }}">{{ recommendation | default('No Recommendation Available', true) }}</option>
+                                
+                                {% else %}
+                                <option value="" disabled>No recommendation available</option>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Weather Forecast</h5>
+                                <ul>
+                                    <h1>Weather Forecast</h1>
+                                    <p>Temperature: {{ weather_forecast.temperature | default('N/A', true) }} °C</p>
+                                    <p>Precipitation: {{ weather_forecast.precipitation | default('N/A', true) }} mm</p>
+                                    <p>Wind Speed: {{ weather_forecast.wind_speed | default('N/A', true) }} m/s</p>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card my-4">
+                    <div class="card-body">
+                        <h3>Total Sales by Product Category</h3>
+                        <canvas id="salesBarChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card my-4">
+                    <div class="card-body">
+                        <h3>Sales Trends Over Time</h3>
+                        <canvas id="salesLineChart"></canvas>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script>
+        const totalSales = {{ total_sales | tojson }};
+        const salesTrends = {{ sales_trends | tojson }};
+
+        const barCtx = document.getElementById('salesBarChart').getContext('2d');
+        new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(totalSales),
+                datasets: [{ data: Object.values(totalSales) }]
+            }
+        });
+
+        const lineCtx = document.getElementById('salesLineChart').getContext('2d');
+        new Chart(lineCtx, {
+            type: 'line',
+            data: {
+                labels: Object.keys(salesTrends),
+                datasets: [{ data: Object.values(salesTrends) }]
+            }
+        });
+    </script> -->
+</body>
+</html>

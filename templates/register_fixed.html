@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Business</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1e202b;
+            color: #bfc1c8;
+        }
+
+        .container {
+            margin-top: 50px;
+            max-width: 600px;
+            background-color: #2c2f3f;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group label {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .form-control {
+            background-color: #3a3d4f;
+            color: #bfc1c8;
+            border: none;
+        }
+
+        .form-control:focus {
+            background-color: #3a3d4f;
+            color: #ffffff;
+            border-color: #009ad8;
+            box-shadow: 0 0 0 0.2rem rgba(0, 154, 216, 0.25);
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #009ad8;
+            border: none;
+            color: #ffffff;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #007bb5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Forecast Product Sales</h1>
+        <form method="POST" action="/register">
+            <div class="form-group">
+                <label for="business_type">Business Type:</label>
+                <input type="text" id="business_type" name="business_type" class="form-control" 
+                       placeholder="Enter your business type..." required>
+            </div>
+
+            <div class="form-group">
+                <label for="product_category">Select Product Category:</label>
+                <select id="product_category" name="product_category" class="form-control" required>
+                    <option value="" disabled selected>Select a category</option>
+                    {% if categories %}
+                        {% for category in categories %}
+                            <option value="{{ category }}">{{ category }}</option>
+                        {% endfor %}
+                    {% else %}
+                        <option value="" disabled>No categories available</option>
+                    {% endif %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
